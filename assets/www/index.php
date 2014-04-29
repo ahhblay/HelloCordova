@@ -156,8 +156,26 @@
         </script>
     </head>
     <body>
-		
-			<form>
+	<?php
+    	    $email = $_POST['email'];
+  	    $name = $_POST['name'];
+
+  	    //connect to database
+  	    $connect = mysql_connect("dbserver.engr.scu.edu","nmaulino","FREE2799");
+  	    if (!$connect)        
+      		die('Error in connection: ' . mysql_error());
+
+  	    mysql_select_db("sdb_nmaulino", $connect);
+            
+  	    if (isset($name)){      
+  	    	if(!mysql_query("INSERT INTO gcm_users (name, email) values ('$name','$email')", $connect))
+          	     die('Error: ' .mysql_error());
+	        else
+          	     echo "<center>Your account has been successfully created.</center>";
+  	    }
+	?>
+
+                        <form method="post">	
               	<input name="name" type="text" class="signup-input" placeholder="Name" id="name" />
               	<input name="email" type="text" class="signup-input" placeholder="Email Address" id="email" />
       			<br />
